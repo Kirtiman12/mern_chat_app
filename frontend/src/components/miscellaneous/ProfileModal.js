@@ -1,10 +1,11 @@
 import { ViewIcon } from '@chakra-ui/icons';
 import { Button, IconButton, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
-import {Image} from '@chakra-ui/react';
+import { Image } from '@chakra-ui/react';
 
 const ProfileModal = ({ user, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <>
       {children ? (
@@ -20,31 +21,40 @@ const ProfileModal = ({ user, children }) => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader
-          fontSize="40px"
-          fontFamily="Work sans"
-          d="flex"
-          justifyContent="center"
-          >{user?.name}</ModalHeader>
-          <ModalCloseButton />
-          <ProfileModal>
-          <ModalBody>
-            <Image
-            borderRadius="full"
-            boxSize="150px"
-            src={user?.pic}
-            alt={user?.name}
-            />
-            <Text 
-            fontSize={{base:"28px", md:"30px"}}
+            fontSize="40px"
             fontFamily="Work sans"
-            >Email:{user?.email}</Text>
+            d="flex"
+            justifyContent="center"
+          >
+            {user?.name}
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Image
+              borderRadius="full"
+              boxSize="150px"
+              src={user?.pic}
+              alt={user?.name}
+            />
+            <div style={{ marginTop: '10px' }}>
+              <Text
+                fontSize={{ base: '28px', md: '30px' }}
+                fontFamily="Work sans"
+              >
+                Email: {user?.email}
+              </Text>
+            </div>
           </ModalBody>
-          </ProfileModal>
           <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={onClose}>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button variant='ghost'>Secondary Action</Button>
+            <Button variant="ghost">Secondary Action</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -53,3 +63,4 @@ const ProfileModal = ({ user, children }) => {
 };
 
 export default ProfileModal;
+

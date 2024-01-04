@@ -1,8 +1,10 @@
-import { Box, Button, Tooltip, Text, Menu, MenuButton, Avatar, MenuList, MenuItem } from "@chakra-ui/react";
+import {Box, Button, Tooltip, Text, Menu, MenuButton, Avatar, MenuList, MenuItem, Drawer, DrawerContent, DrawerHeader, DrawerOverlay, DrawerBody, Input } from "@chakra-ui/react";
 import {BellIcon, ChevronDownIcon} from "@chakra-ui/icons";
 import React, { useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
 import ProfileModal from "./ProfileModal";
+import { useHistory } from "react-router-dom";
+import { useDisclosure } from "@chakra-ui/hooks";
 
 
 const SideDrawer = () => {
@@ -11,9 +13,18 @@ const SideDrawer = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setloading] = useState(false);
   const [loadingChat, setloadingChat] = useState();
+  const history = useHistory();
+  const {isOpen, onOpen, onClose} = useDisclosure();
+  const logoutHandler = () => {
+    localStorage.removeItem("userInfo");
+    if (history) {
+      history.push("/");
 
+    }
+  };
   
   return (
+    <>
     <Box
       display="flex"
       justifyContent="space-between"
@@ -54,10 +65,35 @@ const SideDrawer = () => {
           <ProfileModal user={user}>
             <MenuItem>My Profile</MenuItem>
             </ProfileModal>
-            <MenuItem>Logout</MenuItem>
+            <MenuItem onClick={logoutHandler} >Logout</MenuItem>
         </MenuList>
       </Menu>
     </Box>
+    <Drawer
+    placement="left"
+    onClose={onClose}
+    onOpen={isOpen}
+    >
+    <DrawerOverlay/>
+    <DrawerContent>
+      <DrawerHeader borderBottomWidth='1px'>Search Users  
+      </DrawerHeader>
+    <DrawerBody>
+    <Box d='flex' pb={2}>
+      <Input 
+      placeHolder="Search by name or email"
+      mr={2}
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      />
+      <Button
+      //onClick={handleSearch}
+      >Go</Button>
+    </Box>
+    </DrawerBody>
+    </DrawerContent>
+    </Drawer>
+    </>
   );
 };
 
