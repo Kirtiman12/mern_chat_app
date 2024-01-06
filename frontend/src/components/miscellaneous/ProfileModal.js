@@ -1,7 +1,19 @@
-import { ViewIcon } from '@chakra-ui/icons';
-import { Button, IconButton, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from '@chakra-ui/react';
-import React from 'react';
-import { Image } from '@chakra-ui/react';
+import { ViewIcon } from "@chakra-ui/icons";
+import {
+  Button,
+  IconButton,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
+import React from "react";
+import { Image } from "@chakra-ui/react";
 
 const ProfileModal = ({ user, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -11,11 +23,7 @@ const ProfileModal = ({ user, children }) => {
       {children ? (
         <span onClick={onOpen}>{children}</span>
       ) : (
-        <IconButton
-          d={{ base: 'flex' }}
-          icon={<ViewIcon />}
-          onClick={onOpen}
-        />
+        <IconButton d={{ base: "flex" }} icon={<ViewIcon />} onClick={onOpen} />
       )}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -41,9 +49,9 @@ const ProfileModal = ({ user, children }) => {
               src={user?.pic}
               alt={user?.name}
             />
-            <div style={{ marginTop: '10px' }}>
+            <div style={{ marginTop: "10px" }}>
               <Text
-                fontSize={{ base: '28px', md: '30px' }}
+                fontSize={{ base: "28px", md: "30px" }}
                 fontFamily="Work sans"
               >
                 Email: {user?.email}
@@ -63,4 +71,3 @@ const ProfileModal = ({ user, children }) => {
 };
 
 export default ProfileModal;
-
